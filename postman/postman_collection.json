@@ -1,0 +1,94 @@
+{
+	"info": {
+		"_postman_id": "58f3453b-368a-4f73-8de7-eeeebb6db0b8",
+		"name": "hapi-bangkit-contactsapp",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "15852607"
+	},
+	"item": [
+		{
+			"name": "Create a New Contact",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('response body should have contactId and not equal to empty', () => {",
+							"    const responseJson = pm.response.json();",
+							"    const {data} = responseJson;",
+							"",
+							"    pm.expect(data).to.ownProperty('contactId');",
+							"    pm.expect(data.contactId).to.not.equals('');",
+							"",
+							"    pm.environment.set('contactId', data.contactId);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"John Doe\",\n  \"email\": \"john@example.com\",\n  \"phone\": \"1234567890\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/contacts",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"contacts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Contacts",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/contacts",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"contacts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete One Contact by ID",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/contacts/{{contactId}}",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"contacts",
+						"{{contactId}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
